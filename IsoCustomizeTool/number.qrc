@@ -1,0 +1,23 @@
+<RCC>
+    <qresource prefix="/number">
+        <file>number/NO_inactive1.svg</file>
+        <file>number/NO_inactive2.svg</file>
+        <file>number/NO_inactive3.svg</file>
+        <file>number/NO_inactive4.svg</file>
+        <file>number/NO_inactive5.svg</file>
+        <file>number/NO_inactive6.svg</file>
+        <file>number/NO_inactive7.svg</file>
+        <file>number/NO_inactive8.svg</file>
+        <file>number/NO_inactive9.svg</file>
+        <file>images/iso-16px.svg</file>
+        <file>images/iso-24px.svg</file>
+        <file>images/iso-32px.svg</file>
+        <file>images/iso-48px.svg</file>
+        <file>images/iso-64px.svg</file>
+        <file>images/iso-96px.svg</file>
+        <file>images/iso-128px.svg</file>
+        <file>images/iso-256px.svg</file>
+        <file>images/iso-512px.svg</file>
+        <file>number/progress.svg</file>
+    </qresource>
+</RCC>
