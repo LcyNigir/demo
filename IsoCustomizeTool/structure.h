@@ -1,10 +1,13 @@
 #ifndef STRUCTURE_H
 #define STRUCTURE_H
 
-#include <QWidget>
 #include <DApplication>
 #include <DPushButton>
 #include <DListView>
+#include <DLabel>
+
+#include <QStandardItem>
+#include <QVBoxLayout>
 
 DWIDGET_USE_NAMESPACE
 
@@ -20,9 +23,7 @@ signals:
 public slots:
 
 private:
-
     DPushButton *nextButton;
-
     DListView *m_listView;
 };
 

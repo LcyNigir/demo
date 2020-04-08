@@ -32,5 +32,6 @@
         <file>icons/deepin/builtin/light/icons/NO_inactive8_20px.svg</file>
         <file>icons/deepin/builtin/light/icons/NO_inactive9_20px.svg</file>
         <file>icons/deepin/builtin/light/icons/iso_progress2_20px.svg</file>
+        <file>icons/deepin/builtin/light/icons/fail_image_110px.svg</file>
     </qresource>
 </RCC>

@@ -27,7 +27,7 @@ Prepare::Prepare(QWidget *parent) : QWidget(parent)
 
 
     DPushButton *nextButton = new DPushButton("下一步");
-    nextButton->setEnabled(false);
+//    nextButton->setEnabled(false);
 
 
     QHBoxLayout *firstLayout = new QHBoxLayout;

@@ -34,7 +34,6 @@ HEADERS += \
 
 DISTFILES += \
     number/NO_inactive1.svg \
-    number/NO_inactive2.svg \
     number/NO_inactive3.svg \
     number/NO_inactive4.svg \
     number/NO_inactive5.svg \

@@ -25,7 +25,7 @@ PostCleaning::PostCleaning(QWidget *parent) : QWidget(parent)
     DCommandLinkButton *commandLinkButton = new DCommandLinkButton(tr("选择脚本"));
 
     DPushButton *nextButton = new DPushButton("下一步");
-    nextButton->setEnabled(false);
+//    nextButton->setEnabled(false);
 
     QHBoxLayout *firstLayout = new QHBoxLayout;
     QHBoxLayout *hnextLayout = new QHBoxLayout;

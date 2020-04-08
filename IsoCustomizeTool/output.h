@@ -29,6 +29,16 @@ private:
 
     int m_valus = 0;
     DPushButton *nextButton;
+    DPushButton *finishButton;
+    DPushButton *checkFileButton;
+    DPushButton *closeButton;
+
+    DLabel *firstTitle;
+    DLabel *successIcon;
+    DLabel *successTips;
+    DLabel *failedIcon;
+    DLabel *failedTips;
+    DLabel *tips;
 };
 
 #endif // OUTPUT_H

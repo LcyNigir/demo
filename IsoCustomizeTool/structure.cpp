@@ -1,9 +1,5 @@
 #include "structure.h"
 
-#include <DLabel>
-#include <QStandardItem>
-#include <QVBoxLayout>
-
 Structure::Structure(QWidget *parent) : QWidget(parent)
 {
     DLabel *label = new DLabel("选择架构");
@@ -42,12 +38,11 @@ Structure::Structure(QWidget *parent) : QWidget(parent)
     this->setLayout(mainLayout);
 
     connect(m_listView, &DListView::clicked, [ = ](const QModelIndex & index) {
-        itemModel->item(index.row(), 0)->setCheckState(Qt::Checked);
+        itemModel->item(index.row())->setCheckState(Qt::Checked);
         nextButton->setEnabled(true);
     });
 
     connect(nextButton, &DPushButton::clicked, [ = ]() {
-        nextButton->setEnabled(true);
         emit sendSignal(1);
     });
 }

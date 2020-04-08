@@ -5,6 +5,7 @@
 #include <DMainWindow>
 #include <DTitlebar>
 #include <DListView>
+#include <DFrame>
 
 #include "appconfiguration.h"
 #include "midinstall.h"
@@ -17,7 +18,6 @@
 
 DWIDGET_USE_NAMESPACE
 
-class SelectIso;
 class MainWindow : public DMainWindow
 {
     Q_OBJECT
@@ -26,13 +26,13 @@ public:
 
 private:
     void initWidget();
-    void changeStatusCount();
-    void slotListViewItemClicked(const QModelIndex &index);
 
 signals:
 
 public slots:
     void changeWidget(int);
+    void listViewItemClicked(const QModelIndex &index);
+    void slotActionHelp();
 
 private:
     DTitlebar *m_titlebar;
@@ -50,7 +50,6 @@ private:
     SelectKernel *m_selectKernel;
     Output *m_outputFile;
 
-    int tabStatusCount = 0;
 };
 
 #endif // MAINWINDOW_H

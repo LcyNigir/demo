@@ -29,7 +29,7 @@ AppConfiguration::AppConfiguration(QWidget *parent) : QWidget(parent)
     DCommandLinkButton *commandLinkButton = new DCommandLinkButton(tr("选择程序deb包"));
 
     DPushButton *nextButton = new DPushButton("下一步");
-    nextButton->setEnabled(false);
+//    nextButton->setEnabled(false);
 
     QHBoxLayout *firstLayout = new QHBoxLayout;
     QHBoxLayout *hnextLayout = new QHBoxLayout;
@@ -81,8 +81,11 @@ AppConfiguration::AppConfiguration(QWidget *parent) : QWidget(parent)
         clearButton->hide();
     });
 
+    if (m_floatingMessage.empty()) {
+        label2->show();
+        clearButton->hide();
+    }
     connect(nextButton, &DPushButton::clicked, [ = ]() {
-
         emit sendSignal(2);
     });
 }
