@@ -1,5 +1,7 @@
 #include "prepare.h"
 
+#include <QFileIconProvider>
+
 
 
 Prepare::Prepare(QWidget *parent) : QWidget(parent)
@@ -53,7 +55,7 @@ Prepare::Prepare(QWidget *parent) : QWidget(parent)
             QStringList strSelectedName = fileDialog->selectedFiles();
             for (int i = 0; i < strSelectedName.size(); i++) {
                 floatMessage = new DFloatingMessage(DFloatingMessage::ResidentType, this);
-//                floatMessage->setIcon(QIcon::fromTheme("iso_progress"));
+                floatMessage->setIcon(getIcon(strSelectedName[i]));
                 floatMessage->setMessage(strSelectedName[i]);
                 floatMessage->show();
                 m_floatingMessage.append(floatMessage);
@@ -91,4 +93,12 @@ Prepare::Prepare(QWidget *parent) : QWidget(parent)
         emit sendSignal(3);
     });
 
+}
+
+QIcon Prepare::getIcon(QString ico)
+{
+    QFileIconProvider provider;
+    QIcon icon;
+    icon = provider.icon(QFileInfo(ico));
+    return icon;
 }

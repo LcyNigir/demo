@@ -19,6 +19,7 @@ class AppConfiguration : public QWidget
     Q_OBJECT
 public:
     explicit AppConfiguration(QWidget *parent = nullptr);
+    QIcon getIcon(QString list);
 
 signals:
     void sendSignal(int a);

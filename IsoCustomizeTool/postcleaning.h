@@ -19,6 +19,7 @@ class PostCleaning : public QWidget
     Q_OBJECT
 public:
     explicit PostCleaning(QWidget *parent = nullptr);
+    QIcon getIcon(QString ico);
 
 signals:
     void sendSignal(int a);

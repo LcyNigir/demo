@@ -1,5 +1,7 @@
 #include "midinstall.h"
 
+#include <QFileIconProvider>
+
 MidInstall::MidInstall(QWidget *parent) : QWidget(parent)
 {
     DLabel *label = new DLabel("中期安装");
@@ -50,7 +52,7 @@ MidInstall::MidInstall(QWidget *parent) : QWidget(parent)
             QStringList strSelectedName = fileDialog->selectedFiles();
             for (int i = 0; i < strSelectedName.size(); i++) {
                 floatMessage = new DFloatingMessage(DFloatingMessage::ResidentType, this);
-//                floatMessage->setIcon(QIcon::fromTheme("iso_progress"));
+                floatMessage->setIcon(getIcon(strSelectedName[i]));
                 floatMessage->setMessage(strSelectedName[i]);
                 floatMessage->show();
                 m_floatingMessage.append(floatMessage);
@@ -90,3 +92,12 @@ MidInstall::MidInstall(QWidget *parent) : QWidget(parent)
         emit sendSignal(4);
     });
 }
+
+QIcon MidInstall::getIcon(QString ico)
+{
+    QFileIconProvider provider;
+    QIcon icon;
+    icon = provider.icon(QFileInfo(ico));
+    return icon;
+}
+

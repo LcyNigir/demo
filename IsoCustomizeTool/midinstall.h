@@ -19,6 +19,7 @@ class MidInstall : public QWidget
     Q_OBJECT
 public:
     explicit MidInstall(QWidget *parent = nullptr);
+    QIcon getIcon(QString list);
 
 signals:
     void sendSignal(int a);

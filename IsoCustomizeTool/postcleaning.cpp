@@ -1,5 +1,7 @@
 #include "postcleaning.h"
 
+#include <QFileIconProvider>
+
 PostCleaning::PostCleaning(QWidget *parent) : QWidget(parent)
 {
     DLabel *label = new DLabel("后期清理");
@@ -50,7 +52,7 @@ PostCleaning::PostCleaning(QWidget *parent) : QWidget(parent)
             QStringList strSelectedName = fileDialog->selectedFiles();
             for (int i = 0; i < strSelectedName.size(); i++) {
                 floatMessage = new DFloatingMessage(DFloatingMessage::ResidentType, this);
-//                floatMessage->setIcon(QIcon::fromTheme("iso_progress"));
+                floatMessage->setIcon(getIcon(strSelectedName[i]));
                 floatMessage->setMessage(strSelectedName[i]);
                 floatMessage->show();
                 m_floatingMessage.append(floatMessage);
@@ -89,4 +91,12 @@ PostCleaning::PostCleaning(QWidget *parent) : QWidget(parent)
     connect(nextButton, &DPushButton::clicked, [ = ]() {
         emit sendSignal(5);
     });
+}
+
+QIcon PostCleaning::getIcon(QString ico)
+{
+    QFileIconProvider provider;
+    QIcon icon;
+    icon = provider.icon(QFileInfo(ico));
+    return icon;
 }

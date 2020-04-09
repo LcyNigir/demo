@@ -2,6 +2,7 @@
 
 #include <DFontSizeManager>
 #include <QDebug>
+#include <QFileIconProvider>
 
 
 AppConfiguration::AppConfiguration(QWidget *parent) : QWidget(parent)
@@ -51,10 +52,10 @@ AppConfiguration::AppConfiguration(QWidget *parent) : QWidget(parent)
             clearButton->show();
             QStringList strSelectedName = fileDialog->selectedFiles();
 //            qDebug() << strSelectedName.size();
-//            floatMessage->setIcon(QIcon::fromTheme("iso_progress"));
             for (int i = 0; i < strSelectedName.size(); i++) {
 //                qDebug() << strSelectedName[i];
                 floatMessage = new DFloatingMessage(DFloatingMessage::ResidentType, this);
+                floatMessage->setIcon(getIcon(strSelectedName[i]));
                 floatMessage->setMessage(strSelectedName[i]);
                 floatMessage->show();
 //                qDebug() << floatMessage;
@@ -95,4 +96,13 @@ AppConfiguration::AppConfiguration(QWidget *parent) : QWidget(parent)
     connect(nextButton, &DPushButton::clicked, [ = ]() {
         emit sendSignal(2);
     });
+}
+
+// 获取图标，参考CSDN一去二三里
+QIcon AppConfiguration::getIcon(QString ico)
+{
+    QFileIconProvider provider;
+    QIcon icon;
+    icon = provider.icon(QFileInfo(ico));
+    return icon;
 }
