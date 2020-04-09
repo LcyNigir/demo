@@ -43,18 +43,22 @@ MidInstall::MidInstall(QWidget *parent) : QWidget(parent)
     connect(commandLinkButton, &DCommandLinkButton::clicked, [ = ]() {
         DFileDialog *fileDialog = new DFileDialog();
         fileDialog->setAcceptMode(QFileDialog::AcceptOpen);
+        fileDialog->setFileMode(QFileDialog::ExistingFiles);
         fileDialog->setNameFilter("*.job");
         if (fileDialog->exec() == QDialog::Accepted) {
             clearButton->show();
             QStringList strSelectedName = fileDialog->selectedFiles();
-            floatMessage = new DFloatingMessage(DFloatingMessage::ResidentType, this);
-            floatMessage->setIcon(QIcon::fromTheme("iso_progress"));
-            floatMessage->setMessage(strSelectedName[0]);
-            floatMessage->show();
-            m_floatingMessage.append(floatMessage);
+            for (int i = 0; i < strSelectedName.size(); i++) {
+                floatMessage = new DFloatingMessage(DFloatingMessage::ResidentType, this);
+//                floatMessage->setIcon(QIcon::fromTheme("iso_progress"));
+                floatMessage->setMessage(strSelectedName[i]);
+                floatMessage->show();
+                m_floatingMessage.append(floatMessage);
+                messageLayout->addWidget(floatMessage);
+            }
             label2->hide();
             nextButton->setEnabled(true);
-            messageLayout->addWidget(floatMessage);
+
         }
     });
 

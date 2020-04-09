@@ -13,7 +13,7 @@ AppConfiguration::AppConfiguration(QWidget *parent) : QWidget(parent)
     label->setFont(font);
     DFontSizeManager::instance()->bind(label, DFontSizeManager::T3);
 
-    QWidget *messageBox = new QWidget(this);
+    QWidget *messageBox = new QWidget(this);  //消息显示
     QVBoxLayout *messageLayout = new QVBoxLayout;
     messageBox->setLayout(messageLayout);
 
@@ -50,14 +50,14 @@ AppConfiguration::AppConfiguration(QWidget *parent) : QWidget(parent)
         if (fileDialog->exec() == QDialog::Accepted) {
             clearButton->show();
             QStringList strSelectedName = fileDialog->selectedFiles();
-            qDebug() << strSelectedName.size();
+//            qDebug() << strSelectedName.size();
 //            floatMessage->setIcon(QIcon::fromTheme("iso_progress"));
             for (int i = 0; i < strSelectedName.size(); i++) {
-                qDebug() << strSelectedName[i];
+//                qDebug() << strSelectedName[i];
                 floatMessage = new DFloatingMessage(DFloatingMessage::ResidentType, this);
                 floatMessage->setMessage(strSelectedName[i]);
                 floatMessage->show();
-                qDebug() << floatMessage;
+//                qDebug() << floatMessage;
                 m_floatingMessage.append(floatMessage);
                 messageLayout->addWidget(floatMessage);
             }
