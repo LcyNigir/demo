@@ -21,6 +21,7 @@ public:
     void slotTimerOut();
 
 signals:
+    void sendCloseSignal();
 
 public slots:
 private:

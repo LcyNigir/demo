@@ -1,7 +1,7 @@
 #include "appconfiguration.h"
 
 #include <DFontSizeManager>
-
+#include <QDebug>
 
 
 AppConfiguration::AppConfiguration(QWidget *parent) : QWidget(parent)
@@ -45,18 +45,24 @@ AppConfiguration::AppConfiguration(QWidget *parent) : QWidget(parent)
     connect(commandLinkButton, &DCommandLinkButton::clicked, [ = ]() {
         DFileDialog *fileDialog = new DFileDialog();
         fileDialog->setAcceptMode(QFileDialog::AcceptOpen);
+        fileDialog->setFileMode(QFileDialog::ExistingFiles);
         fileDialog->setNameFilter("*.deb");
         if (fileDialog->exec() == QDialog::Accepted) {
             clearButton->show();
             QStringList strSelectedName = fileDialog->selectedFiles();
-            floatMessage = new DFloatingMessage(DFloatingMessage::ResidentType, this);
-            floatMessage->setIcon(QIcon::fromTheme("iso_progress"));
-            floatMessage->setMessage(strSelectedName[0]);
-            floatMessage->show();
-            m_floatingMessage.append(floatMessage);
+            qDebug() << strSelectedName.size();
+//            floatMessage->setIcon(QIcon::fromTheme("iso_progress"));
+            for (int i = 0; i < strSelectedName.size(); i++) {
+                qDebug() << strSelectedName[i];
+                floatMessage = new DFloatingMessage(DFloatingMessage::ResidentType, this);
+                floatMessage->setMessage(strSelectedName[i]);
+                floatMessage->show();
+                qDebug() << floatMessage;
+                m_floatingMessage.append(floatMessage);
+                messageLayout->addWidget(floatMessage);
+            }
             label2->hide();
             nextButton->setEnabled(true);
-            messageLayout->addWidget(floatMessage);
         }
     });
     mainLayout->addWidget(label2);
@@ -85,6 +91,7 @@ AppConfiguration::AppConfiguration(QWidget *parent) : QWidget(parent)
         label2->show();
         clearButton->hide();
     }
+
     connect(nextButton, &DPushButton::clicked, [ = ]() {
         emit sendSignal(2);
     });

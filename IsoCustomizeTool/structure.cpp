@@ -1,4 +1,5 @@
 #include "structure.h"
+#include <QDebug>
 
 Structure::Structure(QWidget *parent) : QWidget(parent)
 {
@@ -38,7 +39,11 @@ Structure::Structure(QWidget *parent) : QWidget(parent)
     this->setLayout(mainLayout);
 
     connect(m_listView, &DListView::clicked, [ = ](const QModelIndex & index) {
-        itemModel->item(index.row())->setCheckState(Qt::Checked);
+        for (int i = 0; i < m_listView->count(); i++) {
+            itemModel->item(i, 0)->setCheckState(Qt::Unchecked);
+        }
+
+        itemModel->item(index.row(), 0)->setCheckState(Qt::Checked);
         nextButton->setEnabled(true);
     });
 

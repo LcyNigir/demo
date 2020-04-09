@@ -69,7 +69,9 @@ MainWindow::MainWindow(QWidget *parent)
     connect(m_midInstall, &MidInstall::sendSignal, this, &MainWindow::changeWidget);
     connect(m_postClean, &PostCleaning::sendSignal, this, &MainWindow::changeWidget);
     connect(m_selectKernel, &SelectKernel::sendSignal, this, &MainWindow::changeWidget);
-
+    connect(m_outputFile, &Output::sendCloseSignal, [ = ]() {
+        this->close();
+    });
 
 }
 
@@ -118,7 +120,7 @@ void MainWindow::initWidget()
 
     m_listView->setModel(m_standarModel);
 
-    connect(m_listView, &DListView::clicked, this, &MainWindow::listViewItemClicked);
+    connect(m_listView, &DListView::clicked, this, &MainWindow::listViewItemClicked, Qt::QueuedConnection);
 }
 
 void MainWindow::changeWidget(int a)
@@ -133,8 +135,12 @@ void MainWindow::changeWidget(int a)
 
 void MainWindow::listViewItemClicked(const QModelIndex &index)
 {
+    QStandardItemModel *itemModel = m_standarModel;
     QString itemName = index.data().toString();
-    m_pStackedWidget->setCurrentWidget(m_ItemWiget.value(itemName));
+//    qDebug() << itemName;
+    if (itemModel->item(index.row(), 0)->isEnabled()) {
+        m_pStackedWidget->setCurrentWidget(m_ItemWiget.value(itemName));
+    }
 }
 
 void MainWindow::slotActionHelp()

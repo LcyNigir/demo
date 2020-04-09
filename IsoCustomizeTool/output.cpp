@@ -1,5 +1,7 @@
 #include "output.h"
 
+#include <QFileDialog>
+
 Output::Output(QWidget *parent) : QWidget(parent)
 {
     firstTitle = new DLabel("准备输出");
@@ -36,14 +38,25 @@ Output::Output(QWidget *parent) : QWidget(parent)
 
     finishButton = new DPushButton("完成");
     finishButton->hide();
+    connect(finishButton, &DPushButton::clicked, [ = ]() {
+        emit sendCloseSignal();
+    });
+
     checkFileButton = new DPushButton("查看文件");
     checkFileButton->hide();
+    connect(checkFileButton, &DPushButton::clicked, [ = ]() {
+        QFileDialog *checkFile = new QFileDialog();
+        checkFile->setAcceptMode(QFileDialog::AcceptOpen);
+        checkFile->setNameFilter("iso(*.iso)");
+        checkFile->show();
+        checkFile->exec();
+    });
 
     closeButton = new DPushButton("关闭");
     closeButton->hide();
 
     connect(closeButton, &DPushButton::clicked, [ = ]() {
-        this->close();
+        emit sendCloseSignal();
     });
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
@@ -70,7 +83,6 @@ Output::Output(QWidget *parent) : QWidget(parent)
     hnextLayout->addWidget(checkFileButton);
     hnextLayout->addWidget(closeButton);
     hnextLayout->addSpacing(120);
-
 
 
     mainLayout->addLayout(waterLayout);
