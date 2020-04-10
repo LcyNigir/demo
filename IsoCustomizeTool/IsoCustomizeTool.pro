@@ -19,7 +19,8 @@ SOURCES += \
     selectkernel.cpp \
     output.cpp
 
-RESOURCES +=         resources.qrc
+RESOURCES += \        
+    resource.qrc
 
 HEADERS += \
     mainwindow.h \

@@ -26,7 +26,7 @@ signals:
 
 public slots:
 private:
-    DFloatingMessage *floatMessage;
+    DFloatingMessage *m_floatMessage;
     QVector<DFloatingMessage *> m_floatingMessage;
 };
 

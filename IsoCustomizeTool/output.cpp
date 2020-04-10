@@ -4,7 +4,8 @@
 #include <QFileDialog>
 #include <QDebug>
 
-Output::Output(QWidget *parent) : QWidget(parent)
+Output::Output(QWidget *parent)
+    : QWidget(parent)
 {
     firstTitle = new DLabel("准备输出");
     QFont font;
@@ -64,7 +65,7 @@ Output::Output(QWidget *parent) : QWidget(parent)
     QHBoxLayout *waterLayout = new QHBoxLayout;
     QHBoxLayout *hnextLayout = new QHBoxLayout;
 
-    mainLayout->addWidget(firstTitle);
+    mainLayout->addWidget(firstTitle);  //顶部label、中间成功失败图标布局
     mainLayout->addStretch();
     mainLayout->addWidget(successIcon);
     mainLayout->addWidget(failedIcon);
@@ -72,29 +73,26 @@ Output::Output(QWidget *parent) : QWidget(parent)
     mainLayout->setAlignment(failedIcon, Qt::AlignCenter);
 
     waterLayout->addStretch();
-    waterLayout->addWidget(m_pDWaterProgress);
+    waterLayout->addWidget(m_pDWaterProgress);  //水波加载布局
     m_pDWaterProgress->setTextVisible(true);
     m_pDWaterProgress->setValue(m_valus);
     waterLayout->addStretch();
 
-
     hnextLayout->addSpacing(120);
-    hnextLayout->addWidget(nextButton);
+    hnextLayout->addWidget(nextButton);  //下一步、完成、查看、关闭按钮布局
     hnextLayout->addWidget(finishButton);
     hnextLayout->addWidget(checkFileButton);
     hnextLayout->addWidget(closeButton);
     hnextLayout->addSpacing(120);
 
-
-    mainLayout->addLayout(waterLayout);
+    mainLayout->addLayout(waterLayout);  //加载、成功、失败时，问题提示布局
     mainLayout->addWidget(tips, 0, Qt::AlignCenter);
     mainLayout->addWidget(successTips, 0, Qt::AlignCenter);
     mainLayout->addWidget(failedTips, 0, Qt::AlignCenter);
     mainLayout->addStretch();
     mainLayout->addLayout(hnextLayout);
 
-
-    this->setLayout(mainLayout);
+    this->setLayout(mainLayout);  //页面总布局
 
     connect(nextButton, &DPushButton::clicked, [ = ]() {
         emit lockListItem();
@@ -102,7 +100,6 @@ Output::Output(QWidget *parent) : QWidget(parent)
         nextButton->setEnabled(false);
         firstTitle->setText("正在输出");
         tips->show();
-
     });
 
     //构造成功失败场景，根据第二步框架选择的结果决定成功失败界面，以及输出文件。未完成，正在做。

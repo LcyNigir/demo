@@ -2,25 +2,24 @@
 
 #include <QFileIconProvider>
 
-
-
-Prepare::Prepare(QWidget *parent) : QWidget(parent)
+Prepare::Prepare(QWidget *parent)
+    : QWidget(parent)
 {
-    DLabel *label = new DLabel("前期准备");
+    DLabel *topLabel = new DLabel("前期准备");
     QFont font;
     font.setFamily("SimHei");
     font.setBold(true);
-    label->setFont(font);
-    DFontSizeManager::instance()->bind(label, DFontSizeManager::T3);
+    topLabel->setFont(font);
+    DFontSizeManager::instance()->bind(topLabel, DFontSizeManager::T3);
 
     QWidget *messageBox = new QWidget(this);
     QVBoxLayout *messageLayout = new QVBoxLayout;
     messageBox->setLayout(messageLayout);
 
-    DLabel *label2 = new DLabel("请选择前期准备");
-    DFontSizeManager::instance()->bind(label2, DFontSizeManager::T2);
-    label2->setAlignment(Qt::AlignCenter);
-    label2->setEnabled(false);
+    DLabel *midLabel = new DLabel("请选择前期准备");
+    DFontSizeManager::instance()->bind(midLabel, DFontSizeManager::T2);
+    midLabel->setAlignment(Qt::AlignCenter);
+    midLabel->setEnabled(false);
 
     DCommandLinkButton *clearButton = new DCommandLinkButton(tr("全部清除"), this);
     clearButton->hide();
@@ -29,14 +28,12 @@ Prepare::Prepare(QWidget *parent) : QWidget(parent)
 
 
     DPushButton *nextButton = new DPushButton("下一步");
-//    nextButton->setEnabled(false);
 
+    QVBoxLayout *mainLayout = new QVBoxLayout;   //总布局
+    QHBoxLayout *firstLayout = new QHBoxLayout;  //顶部label和clearButton布局
+    QHBoxLayout *hnextLayout = new QHBoxLayout;  //下一步按钮布局
 
-    QHBoxLayout *firstLayout = new QHBoxLayout;
-    QHBoxLayout *hnextLayout = new QHBoxLayout;
-    QVBoxLayout *mainLayout = new QVBoxLayout;
-
-    firstLayout->addWidget(label);
+    firstLayout->addWidget(topLabel);
     firstLayout->addWidget(clearButton);
     firstLayout->setAlignment(clearButton, Qt::AlignRight);
 
@@ -50,24 +47,26 @@ Prepare::Prepare(QWidget *parent) : QWidget(parent)
         fileDialog->setAcceptMode(QFileDialog::AcceptOpen);
         fileDialog->setFileMode(QFileDialog::ExistingFiles);
         fileDialog->setNameFilter("*.job");
+
         if (fileDialog->exec() == QDialog::Accepted) {
             clearButton->show();
             QStringList strSelectedName = fileDialog->selectedFiles();
+
             for (int i = 0; i < strSelectedName.size(); i++) {
-                floatMessage = new DFloatingMessage(DFloatingMessage::ResidentType, this);
-                floatMessage->setIcon(getIcon(strSelectedName[i]));
-                floatMessage->setMessage(strSelectedName[i]);
-                floatMessage->show();
-                m_floatingMessage.append(floatMessage);
-                messageLayout->addWidget(floatMessage);
+                m_floatMessage = new DFloatingMessage(DFloatingMessage::ResidentType, this);
+                m_floatMessage->setIcon(getIcon(strSelectedName[i]));
+                m_floatMessage->setMessage(strSelectedName[i]);
+                m_floatMessage->show();
+                m_floatingMessage.append(m_floatMessage);
+                messageLayout->addWidget(m_floatMessage);
             }
-            label2->hide();
+            midLabel->hide();
             nextButton->setEnabled(true);
 
         }
     });
 
-    mainLayout->addWidget(label2);
+    mainLayout->addWidget(midLabel);
     mainLayout->addStretch();
 
     mainLayout->addWidget(commandLinkButton);
@@ -85,7 +84,7 @@ Prepare::Prepare(QWidget *parent) : QWidget(parent)
         for (int i = 0; i < m_floatingMessage.size(); i++) {
             m_floatingMessage[i]->close();
         }
-        label2->show();
+        midLabel->show();
         clearButton->hide();
     });
 

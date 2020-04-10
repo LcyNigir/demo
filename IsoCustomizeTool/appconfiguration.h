@@ -7,6 +7,8 @@
 #include <DCommandLinkButton>
 #include <DFileDialog>
 #include <DMessageManager>
+#include <DListWidget>
+#include <DGroupBox>
 
 #include <QWidget>
 #include <QHBoxLayout>
@@ -26,7 +28,7 @@ signals:
 
 public slots:
 private:
-    DFloatingMessage *floatMessage;
+    DFloatingMessage *m_floatMessage;
     QVector<DFloatingMessage *> m_floatingMessage;
 };
 

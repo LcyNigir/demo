@@ -8,6 +8,7 @@ Structure::Structure(QWidget *parent) : QWidget(parent)
     font.setFamily("SimHei");
     font.setBold(true);
     label->setFont(font);
+    DFontSizeManager::instance()->bind(label, DFontSizeManager::T3);
 
     itemModel = new QStandardItemModel;
     QStandardItem *arm = new QStandardItem(tr("ARM"));
@@ -42,11 +43,10 @@ Structure::Structure(QWidget *parent) : QWidget(parent)
         for (int i = 0; i < m_listView->count(); i++) {
             itemModel->item(i, 0)->setCheckState(Qt::Unchecked);
         }
-//        QString str = arm->text();
-//        qDebug() << str;
         itemModel->item(index.row(), 0)->setCheckState(Qt::Checked);
+        itemModel->item(index.row(), 0)->setSelectable(false);  //选中后，只有边框有颜色变化
         nextButton->setEnabled(true);
-        emit sendSelectedItemName(itemModel->item(index.row(), 0)->text());
+        emit sendSelectedItemName(itemModel->item(index.row(), 0)->text()); //发射信号到output界面，判断框架是否选择正确。
         qDebug() << itemModel->item(index.row(), 0)->text();
     });
 

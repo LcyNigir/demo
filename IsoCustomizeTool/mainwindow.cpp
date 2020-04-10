@@ -1,17 +1,18 @@
 #include "mainwindow.h"
+
 #include <QDebug>
 #include <QStackedWidget>
 
 MainWindow::MainWindow(QWidget *parent)
-    : DMainWindow(parent),
-      m_selectIso(new SelectIso),
-      m_structure(new Structure),
-      m_appConfig(new AppConfiguration),
-      m_prepare(new Prepare),
-      m_midInstall(new MidInstall),
-      m_postClean(new PostCleaning),
-      m_selectKernel(new SelectKernel),
-      m_outputFile(new Output)
+    : DMainWindow(parent)
+    , m_selectIso(new SelectIso)
+    , m_structure(new Structure)
+    , m_appConfig(new AppConfiguration)
+    , m_prepare(new Prepare)
+    , m_midInstall(new MidInstall)
+    , m_postClean(new PostCleaning)
+    , m_selectKernel(new SelectKernel)
+    , m_outputFile(new Output)
 {
     auto flags = windowFlags() & ~Qt::WindowMaximizeButtonHint;
     setWindowFlags(flags);
@@ -150,7 +151,6 @@ void MainWindow::slotActionHelp()
 
 void MainWindow::lockItemFinal()
 {
-    //QStandardItemModel *itemModel = m_standarModel;
     for (int i = 0; i < 8; i++) {
         m_standarModel->item(i, 0)->setEnabled(false);
     }

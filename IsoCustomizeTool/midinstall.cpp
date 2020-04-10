@@ -2,24 +2,25 @@
 
 #include <QFileIconProvider>
 
-MidInstall::MidInstall(QWidget *parent) : QWidget(parent)
+MidInstall::MidInstall(QWidget *parent)
+    : QWidget(parent)
 {
-    DLabel *label = new DLabel("中期安装");
+    DLabel *topLabel = new DLabel("中期安装");
     QFont font;
     font.setFamily("SimHei");
     font.setBold(true);
-    label->setFont(font);
-    DFontSizeManager::instance()->bind(label, DFontSizeManager::T3);
+    topLabel->setFont(font);
+    DFontSizeManager::instance()->bind(topLabel, DFontSizeManager::T3);
 
     QWidget *messageBox = new QWidget(this);
     QVBoxLayout *messageLayout = new QVBoxLayout;
     messageBox->setLayout(messageLayout);
 
 
-    DLabel *label2 = new DLabel("请选择中期安装");
-    DFontSizeManager::instance()->bind(label2, DFontSizeManager::T2);
-    label2->setAlignment(Qt::AlignCenter);
-    label2->setEnabled(false);
+    DLabel *midLabel = new DLabel("请选择中期安装");
+    DFontSizeManager::instance()->bind(midLabel, DFontSizeManager::T2);
+    midLabel->setAlignment(Qt::AlignCenter);
+    midLabel->setEnabled(false);
 
     DCommandLinkButton *clearButton = new DCommandLinkButton(tr("全部清除"), this);
     clearButton->hide();
@@ -27,14 +28,13 @@ MidInstall::MidInstall(QWidget *parent) : QWidget(parent)
     DCommandLinkButton *commandLinkButton = new DCommandLinkButton(tr("选择脚本"));
 
     DPushButton *nextButton = new DPushButton("下一步");
-//    nextButton->setEnabled(false);
 
     QHBoxLayout *firstLayout = new QHBoxLayout;
     QHBoxLayout *hnextLayout = new QHBoxLayout;
     QVBoxLayout *mainLayout = new QVBoxLayout;
 
 
-    firstLayout->addWidget(label);
+    firstLayout->addWidget(topLabel);
     firstLayout->addWidget(clearButton);
     firstLayout->setAlignment(clearButton, Qt::AlignRight);
 
@@ -47,9 +47,11 @@ MidInstall::MidInstall(QWidget *parent) : QWidget(parent)
         fileDialog->setAcceptMode(QFileDialog::AcceptOpen);
         fileDialog->setFileMode(QFileDialog::ExistingFiles);
         fileDialog->setNameFilter("*.job");
+
         if (fileDialog->exec() == QDialog::Accepted) {
             clearButton->show();
             QStringList strSelectedName = fileDialog->selectedFiles();
+
             for (int i = 0; i < strSelectedName.size(); i++) {
                 floatMessage = new DFloatingMessage(DFloatingMessage::ResidentType, this);
                 floatMessage->setIcon(getIcon(strSelectedName[i]));
@@ -58,13 +60,15 @@ MidInstall::MidInstall(QWidget *parent) : QWidget(parent)
                 m_floatingMessage.append(floatMessage);
                 messageLayout->addWidget(floatMessage);
             }
-            label2->hide();
+
+            midLabel->hide();
             nextButton->setEnabled(true);
 
         }
+
     });
 
-    mainLayout->addWidget(label2);
+    mainLayout->addWidget(midLabel);
     mainLayout->addStretch();
 
     mainLayout->addWidget(commandLinkButton);
@@ -74,9 +78,7 @@ MidInstall::MidInstall(QWidget *parent) : QWidget(parent)
     hnextLayout->addWidget(nextButton);
     hnextLayout->addSpacing(120);
 
-
     mainLayout->addLayout(hnextLayout);
-
 
     this->setLayout(mainLayout);
 
@@ -84,7 +86,7 @@ MidInstall::MidInstall(QWidget *parent) : QWidget(parent)
         for (int i = 0; i < m_floatingMessage.size(); i++) {
             m_floatingMessage[i]->close();
         }
-        label2->show();
+        midLabel->show();
         clearButton->hide();
     });
 
