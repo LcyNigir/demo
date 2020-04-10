@@ -36,13 +36,13 @@ Output::Output(QWidget *parent) : QWidget(parent)
 
     nextButton = new DPushButton("下一步");
 
-    finishButton = new DPushButton("完成");
+    finishButton = new DPushButton("完成"); //成功界面按钮1
     finishButton->hide();
     connect(finishButton, &DPushButton::clicked, [ = ]() {
         emit sendCloseSignal();
     });
 
-    checkFileButton = new DPushButton("查看文件");
+    checkFileButton = new DPushButton("查看文件");  //成功界面按钮2
     checkFileButton->hide();
     connect(checkFileButton, &DPushButton::clicked, [ = ]() {
         QFileDialog *checkFile = new QFileDialog();
@@ -52,9 +52,8 @@ Output::Output(QWidget *parent) : QWidget(parent)
         checkFile->exec();
     });
 
-    closeButton = new DPushButton("关闭");
+    closeButton = new DPushButton("关闭");  //失败界面按钮
     closeButton->hide();
-
     connect(closeButton, &DPushButton::clicked, [ = ]() {
         emit sendCloseSignal();
     });

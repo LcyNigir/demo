@@ -59,7 +59,9 @@ AppConfiguration::AppConfiguration(QWidget *parent) : QWidget(parent)
                 floatMessage->setMessage(strSelectedName[i]);
                 floatMessage->show();
 //                qDebug() << floatMessage;
+//                qDebug() << "test close" << floatMessage->close();
                 m_floatingMessage.append(floatMessage);
+//                qDebug() << m_floatingMessage.size();
                 messageLayout->addWidget(floatMessage);
             }
             label2->hide();
@@ -88,10 +90,9 @@ AppConfiguration::AppConfiguration(QWidget *parent) : QWidget(parent)
         clearButton->hide();
     });
 
-    if (m_floatingMessage.empty()) {
-        label2->show();
-        clearButton->hide();
-    }
+//    for (auto iter = m_floatingMessage.begin(); iter != m_floatingMessage.end(); iter++) {
+
+//    }
 
     connect(nextButton, &DPushButton::clicked, [ = ]() {
         emit sendSignal(2);
