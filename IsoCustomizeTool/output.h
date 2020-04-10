@@ -13,18 +13,21 @@
 
 DWIDGET_USE_NAMESPACE
 
+class Structure;
 class Output : public QWidget
 {
     Q_OBJECT
 public:
     explicit Output(QWidget *parent = nullptr);
-    void slotTimerOut();
+    void slotTimerOut(QString);
 
 signals:
     void sendCloseSignal();
+    void lockListItem();
 
 public slots:
 private:
+    Structure *m_structure;
     QTimer *m_ptimer;
     DWaterProgress *m_pDWaterProgress;
 

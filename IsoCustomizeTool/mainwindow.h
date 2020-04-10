@@ -33,6 +33,7 @@ public slots:
     void changeWidget(int);
     void listViewItemClicked(const QModelIndex &index);
     void slotActionHelp();
+    void lockItemFinal();
 
 private:
     DTitlebar *m_titlebar;

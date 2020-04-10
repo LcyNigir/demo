@@ -9,7 +9,7 @@ Structure::Structure(QWidget *parent) : QWidget(parent)
     font.setBold(true);
     label->setFont(font);
 
-    QStandardItemModel *itemModel = new QStandardItemModel;
+    itemModel = new QStandardItemModel;
     QStandardItem *arm = new QStandardItem(tr("ARM"));
     QStandardItem *x86 = new QStandardItem(tr("X86"));
     QStandardItem *mips = new QStandardItem(tr("MIPS"));
@@ -42,9 +42,12 @@ Structure::Structure(QWidget *parent) : QWidget(parent)
         for (int i = 0; i < m_listView->count(); i++) {
             itemModel->item(i, 0)->setCheckState(Qt::Unchecked);
         }
-
+//        QString str = arm->text();
+//        qDebug() << str;
         itemModel->item(index.row(), 0)->setCheckState(Qt::Checked);
         nextButton->setEnabled(true);
+        emit sendSelectedItemName(itemModel->item(index.row(), 0)->text());
+        qDebug() << itemModel->item(index.row(), 0)->text();
     });
 
     connect(nextButton, &DPushButton::clicked, [ = ]() {

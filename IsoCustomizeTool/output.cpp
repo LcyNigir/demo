@@ -1,4 +1,5 @@
 #include "output.h"
+#include "structure.h"
 
 #include <QFileDialog>
 
@@ -95,14 +96,19 @@ Output::Output(QWidget *parent) : QWidget(parent)
     this->setLayout(mainLayout);
 
     connect(nextButton, &DPushButton::clicked, [ = ]() {
+        emit lockListItem();
         m_ptimer->start();
         nextButton->setEnabled(false);
         firstTitle->setText("正在输出");
         tips->show();
+
     });
+
+    //构造成功失败场景，根据第二步框架选择的结果决定成功失败界面，以及输出文件。未完成，正在做。
+//    connect(m_structure, &Structure::sendSelectedItemName, this, &Output::slotTimerOut);
 }
 
-void Output::slotTimerOut()
+void Output::slotTimerOut(QString structureName)
 {
     m_valus++;
     if (m_valus == 100) {

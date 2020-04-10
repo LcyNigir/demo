@@ -19,10 +19,12 @@ public:
 
 signals:
     void sendSignal(int a);
+    void sendSelectedItemName(QString);
 
 public slots:
 
 private:
+    QStandardItemModel *itemModel;
     DPushButton *nextButton;
     DListView *m_listView;
 };

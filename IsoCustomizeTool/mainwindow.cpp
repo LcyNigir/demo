@@ -69,10 +69,10 @@ MainWindow::MainWindow(QWidget *parent)
     connect(m_midInstall, &MidInstall::sendSignal, this, &MainWindow::changeWidget);
     connect(m_postClean, &PostCleaning::sendSignal, this, &MainWindow::changeWidget);
     connect(m_selectKernel, &SelectKernel::sendSignal, this, &MainWindow::changeWidget);
+    connect(m_outputFile, &Output::lockListItem, this, &MainWindow::lockItemFinal);
     connect(m_outputFile, &Output::sendCloseSignal, [ = ]() {
         this->close();
     });
-
 }
 
 void MainWindow::initWidget()
@@ -146,6 +146,14 @@ void MainWindow::listViewItemClicked(const QModelIndex &index)
 void MainWindow::slotActionHelp()
 {
     qDebug() << "help...help...help...help";
+}
+
+void MainWindow::lockItemFinal()
+{
+    //QStandardItemModel *itemModel = m_standarModel;
+    for (int i = 0; i < 8; i++) {
+        m_standarModel->item(i, 0)->setEnabled(false);
+    }
 }
 
 
