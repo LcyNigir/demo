@@ -19,7 +19,7 @@ class Output : public QWidget
     Q_OBJECT
 public:
     explicit Output(QWidget *parent = nullptr);
-    void slotTimerOut(QString);
+    void slotTimerOut();
 
 signals:
     void sendCloseSignal();

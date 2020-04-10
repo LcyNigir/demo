@@ -2,6 +2,7 @@
 #include "structure.h"
 
 #include <QFileDialog>
+#include <QDebug>
 
 Output::Output(QWidget *parent) : QWidget(parent)
 {
@@ -108,8 +109,9 @@ Output::Output(QWidget *parent) : QWidget(parent)
 //    connect(m_structure, &Structure::sendSelectedItemName, this, &Output::slotTimerOut);
 }
 
-void Output::slotTimerOut(QString structureName)
+void Output::slotTimerOut()
 {
+//    qDebug() << structureName;
     m_valus++;
     if (m_valus == 100) {
         m_ptimer->stop();
@@ -131,3 +133,4 @@ void Output::slotTimerOut(QString structureName)
     m_pDWaterProgress->setValue(m_valus);
     update();
 }
+
